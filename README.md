@@ -1,6 +1,13 @@
-# 워드 프레스 추가 설정
+# 도커 컴포즈 설정 파일
 
-## docker-compose 로 컨테이너를 모두 올린 후에 추가적으로 해야할것
+- db, wordpress, nginx, nginx proxy 활용
+- blog 로 접속시 워드프레스 연결
+- 다른 로케이션은 사용자 페이지
+- 다른 두 nginx와 wordpress는 db와 연결
+
+## 워드 프레스 추가 설정
+
+### docker-compose 로 컨테이너를 모두 올린 후에 추가적으로 해야할것
 
 - 워드프레스 컨테이너에 접속
 
