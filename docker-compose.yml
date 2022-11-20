@@ -7,6 +7,7 @@ services:
       - db
       - wordpress
     image: nginx:latest
+    container_name: proxy
     ports:
       - '80:80'
     restart: always
@@ -16,10 +17,16 @@ services:
   nginx:
     image: nginx:latest
     restart: always
+    container_name: myweb
+    volumes:
+      - './myweb:/user/share/nginx/html'
 
   db:
     image: mysql:5.7
     restart: always
+    container_name: mysqldb
+    volumes:
+      - 'mydb:/var/lib/mysql'
     environment:
       - MYSQL_ROOT_PASSWORD=somewordpress
       - MYSQL_DATABASE=wordpress
@@ -29,7 +36,10 @@ services:
   wordpress:
     depends_on:
       - db
-    image: wordpress:5.7.0
+    container_name: wp
+    build:
+      context: './wp'
+      dockerfile: Dockerfile
     ports:
       - '8080:80'
     restart: always
@@ -38,3 +48,8 @@ services:
       - WORDPRESS_DB_USER=wordpress
       - WORDPRESS_DB_PASSWORD=wordpress
       - WORDPRESS_DB_NAME=wordpress
+
+# 경로가 아닌 이름으로 볼륨 연결시 여기에 연결해줘야 함
+volumes:
+  mydb: #
+
