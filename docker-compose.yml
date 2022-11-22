@@ -19,7 +19,13 @@ services:
     restart: always
     container_name: myweb
     volumes:
-      - './myweb:/user/share/nginx/html'
+      - './myweb:/usr/share/nginx/html'
+
+  flask:
+    build: ./flask_docker
+    restart: always
+    container_name: myflask
+    command: gunicorn -w 1 -b 0.0.0.0:80 wsgi:server # w = worker 프로세스 갯수 b = IP:PORT
 
   db:
     image: mysql:5.7
